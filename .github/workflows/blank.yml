@@ -32,9 +32,9 @@ jobs:
           echo "Extracted URL: $TEST_RESULT_URL"
           echo "Extracted Test Plan Name: $TEST_PLAN_NAME"
 
-      - name: Send failure result to Teams
+      - name: Send failure result to Slack
         if: ${{ failure() }}
         run: |
           curl -H "Content-Type: application/json" \
           -d '{"text": "Autify Test Failed for Test Plan: '"$TEST_PLAN_NAME"'. Please check the results at: '"$TEST_RESULT_URL"'"}' \
-          ${{ secrets.TEAMS_WEBHOOK_URL }}
+          ${{ secrets.SLACK_WEBHOOK_URL }}

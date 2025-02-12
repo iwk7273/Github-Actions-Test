@@ -17,6 +17,6 @@ jobs:
         uses: autifyhq/actions-web-test-run@v2
         with:
           access-token: ${{ secrets.AUTIFY_WEB_ACCESS_TOKEN }}  # AutifyのAPIトークンをGitHub Secretsに設定
-          autify-test-url: https://app.autify.com/projects/00/scenarios/000  # 実行するシナリオのURL
+          autify-test-url: https://app.autify.com/projects/111/test_plans/887376  # 実行するシナリオのURL
           wait: true  # テストが終了するまで待機
           timeout: 300  # 5分でタイムアウトする設定

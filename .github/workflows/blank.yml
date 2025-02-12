@@ -21,18 +21,11 @@ jobs:
           wait: true  # テストが終了するまで待機
           timeout: 300  # 5分でタイムアウトする設定
 
-
       - name: Extract Test Result URL and Notify Slack
         if: ${{ failure() }}  # テストが失敗した場合のみ実行
         run: |
           # エラーメッセージからURLを抽出
           ERROR_LOG=$(cat $GITHUB_STEP_SUMMARY)  # エラーメッセージをキャプチャ
-          TEST_RESULT_URL=$(echo "$ERROR_LOG" | grep -oP "https://app\.autify\.com/projects/\d+/results/\d+")
-          TEST_PLAN_NAME=$(echo "$ERROR_LOG" | grep -oP '"name":"([^"]+)"' | head -n 1 | sed 's/"name":"//g' | sed 's/"//g')
-
-          # 抽出した情報を表示
-          echo "Extracted URL: $TEST_RESULT_URL"
-          echo "Extracted Test Plan Name: $TEST_PLAN_NAME"
 
           # Slack通知
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"Autify Test Failed for Test Plan: '"$TEST_PLAN_NAME"'. Please check the results at: '"$TEST_RESULT_URL"'"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Autify Test Failed. '"$ERROR_LOG"'"}' ${{ secrets.SLACK_WEBHOOK_URL }}

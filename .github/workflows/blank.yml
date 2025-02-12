@@ -1,0 +1,22 @@
+name: Run Autify Web Test
+
+on:
+  workflow_dispatch:  # 手動でトリガーするためのイベント
+
+jobs:
+  run-autify-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # リポジトリのコードをチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Autify for Webテストを実行する
+      - name: Run Autify Web Test
+        uses: autifyhq/actions-web-test-run@v2
+        with:
+          access-token: ${{ secrets.AUTIFY_WEB_ACCESS_TOKEN }}  # AutifyのAPIトークンをGitHub Secretsに設定
+          autify-test-url: https://app.autify.com/projects/00/scenarios/000  # 実行するシナリオのURL
+          wait: true  # テストが終了するまで待機
+          timeout: 300  # 5分でタイムアウトする設定

@@ -24,8 +24,9 @@ jobs:
       - name: Extract Test Result URL and Notify Slack
         if: ${{ failure() }}  # テストが失敗した場合のみ実行
         run: |
-          # エラーメッセージからURLを抽出
-          ERROR_LOG=$(cat $GITHUB_STEP_SUMMARY)  # エラーメッセージをキャプチャ
-
+          # エラーメッセージをキャプチャ
+          ERROR_LOG=$(tail -n 10 $GITHUB_ENV)
+          echo "Captured Error: $ERROR_LOG"
+          
           # Slack通知
           curl -X POST -H 'Content-type: application/json' --data '{"text":"Autify Test Failed. '"$ERROR_LOG"'"}' ${{ secrets.SLACK_WEBHOOK_URL }}

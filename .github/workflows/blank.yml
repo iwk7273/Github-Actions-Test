@@ -17,17 +17,6 @@ jobs:
         uses: autifyhq/actions-web-test-run@v2
         with:
           access-token: ${{ secrets.AUTIFY_WEB_ACCESS_TOKEN }}  # AutifyのAPIトークンをGitHub Secretsに設定
-          autify-test-url: https://app.autify.com/projects/111/test_plans/887376  # 実行するシナリオのURL
+          autify-test-url: https://app.autify.com/projects/111/test_plans/902789  # 実行するシナリオのURL
           #wait: true  # テストが終了するまで待機
           #timeout: 300  # 5分でタイムアウトする設定
-
-      - name: Extract Test Result URL and Notify Slack
-        if: ${{ failure() }}  # テストが失敗した場合のみ実行
-        run: |
-          # エラーメッセージをキャプチャ
-          ERROR_LOG=$(tail -n 50 /tmp/err_log.log)  # エラーログファイルを50行取得（例として）
-
-          # エラーメッセージを標準出力に表示
-          echo "Captured Error: $ERROR_LOG"          
-          # Slack通知
-          # curl -X POST -H 'Content-type: application/json' --data '{"text":"Autify Test Failed. '"$ERROR_LOG"'"}' ${{ secrets.SLACK_WEBHOOK_URL }}

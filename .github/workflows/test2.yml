@@ -1,0 +1,9 @@
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Autify Test
+        uses: autifyhq/actions-web-test-run@v2
+        with:
+          access-token: ${{ secrets.AUTIFY_WEB_ACCESS_TOKEN }}
+          autify-test-url: https://app.autify.com/projects/14087/test_plans/900061

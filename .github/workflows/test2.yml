@@ -1,3 +1,8 @@
+name: Run Autify Web Test
+
+on:
+  workflow_dispatch:  # 手動でトリガーするためのイベント
+
 jobs:
   test:
     runs-on: ubuntu-latest
